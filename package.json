@@ -6,16 +6,7 @@
   "main": "main.js",
   "build": {
     "appId": "com.example.app",
-    "fileAssociations": [
-      {
-        "ext": [
-          "tt",
-          "json"
-        ],
-        "name": "Tradetrust File",
-        "role": "Viewer"
-      }
-    ],
+    "fileAssociations": [{"name":"TradeTrust Document","ext":"tt"}, {"name":"JSON Document", "ext": "json"}],
     "mac": {
       "target": [
         {
