@@ -27,7 +27,7 @@
   },
   "scripts": {
     "pack": "electron-builder --dir",
-    "dist": "electron-builder build",
+    "dist": "electron-builder build --publish=never",
     "lint": "eslint main.js --ext .js --max-warnings 0",
     "lint:fix": "npm run lint -- --fix"
   },
