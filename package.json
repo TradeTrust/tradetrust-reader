@@ -1,0 +1,55 @@
+{
+  "name": "electron-tradetrust-reader",
+  "productName": "TradeTrust Reader",
+  "description": "Read .TT files through browser",
+  "version": "0.1.0",
+  "main": "main.js",
+  "build": {
+    "appId": "com.example.app",
+    "fileAssociations": [
+      {
+        "ext": [
+          "tt",
+          "json"
+        ],
+        "name": "Tradetrust File",
+        "role": "Viewer"
+      }
+    ],
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.png"
+    },
+    "win": {
+      "icon": "build/icon.png"
+    },
+    "linux": {
+      "icon": "build/icon.png"
+    }
+  },
+  "scripts": {
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder build",
+    "lint": "eslint main.js --ext .js --max-warnings 0",
+    "lint:fix": "npm run lint -- --fix"
+  },
+  "devDependencies": {
+    "electron": "^11.2.1",
+    "electron-builder": "^22.9.1",
+    "eslint": "^7.19.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1"
+  },
+  "dependencies": {
+    "electron-squirrel-startup": "^1.0.0"
+  }
+}

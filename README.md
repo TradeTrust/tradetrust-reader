@@ -1,1 +1,34 @@
-# tradetrust-reader
+# TradeTrust-Reader
+
+File reader for TradeTrust document, where users can verify TradeTrust(.tt) document by opening files.
+
+_Note: The reader are only use for document issued under mainnet ._
+
+---
+
+## Install
+
+1. Download the application setup at releases section.
+2. Install TradeTrust Reader.
+3. Set tradetrust reader as default application for .tt document.
+4. Or open .tt document with tradetrust reader.
+
+## Issues
+- Unsupported File Type
+Application only support extension of .tt and .json document.
+
+## Development
+You can `git clone` this repo
+```sh
+$ git clone https://github.com/TradeTrust/tradetrust-reader.git
+$ npm install
+```
+
+## Commands
+```sh
+$ npm run dist # Build application
+$ npm run pack # Build application (unpacked dir)
+$ npm run lint # package
+$ npm run lint:fix # lint code
+```
+---
