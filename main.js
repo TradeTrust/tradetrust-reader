@@ -135,7 +135,7 @@ function main() {
 app.on("open-file", (event, path) => {
   event.preventDefault();
   macFilePath = path;
-  if (BrowserWindow.getAllWindows.length > 0) {
+  if (BrowserWindow.getAllWindows().length > 0) {
     main();
   }
 });
