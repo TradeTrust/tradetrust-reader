@@ -9,13 +9,13 @@ _Note: The reader are only use for document issued under mainnet ._
 ## Install
 
 1. Download the application setup at releases section.
-2. Install TradeTrust Reader.
-3. Set tradetrust reader as default application for .tt document.
-4. Or open .tt document with tradetrust reader.
+2. Install OpenAttestation Reader.
+3. Set OpenAttestation reader as default application for .tt/.oc/.oa document.
+4. Or open .tt/.oc/.oa document with OpenAttestation reader.
 
 ## Issues
 - Unsupported File Type
-Application only support extension of .tt and .json document.
+Application only support extension of .tt, .oc, .oa document.
 
 ## Development
 You can `git clone` this repo

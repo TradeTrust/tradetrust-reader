@@ -1,12 +1,29 @@
 {
-  "name": "electron-tradetrust-reader",
-  "productName": "TradeTrust Reader",
-  "description": "Read .TT files through browser",
+  "name": "openattestation-reader",
+  "productName": "OpenAttestation Reader",
+  "description": "Read .OA, .TT, .OC files through browser",
   "version": "0.1.0",
   "main": "main.js",
   "build": {
     "appId": "com.example.app",
-    "fileAssociations": [{"name":"TradeTrust Document","ext":"tt"}, {"name":"JSON Document", "ext": "json"}],
+    "fileAssociations": [
+      {
+        "name": "TradeTrust Document",
+        "ext": "tt"
+      },
+      {
+        "name": "JSON Document",
+        "ext": "json"
+      },
+      {
+        "name": "OpenAttestation Document",
+        "ext": "oa"
+      },
+      {
+        "name": "OpenCert Document",
+        "ext": "oc"
+      }
+    ],
     "mac": {
       "target": [
         {
@@ -26,6 +43,7 @@
     }
   },
   "scripts": {
+    "test": "set NODE_ENV=development && electron .",
     "pack": "electron-builder --dir",
     "dist": "electron-builder build --publish=never",
     "lint": "eslint main.js --ext .js --max-warnings 0",
