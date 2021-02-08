@@ -43,7 +43,8 @@
     }
   },
   "scripts": {
-    "test": "set NODE_ENV=development && electron .",
+    "test-mac": "export NODE_ENV=development && electron .",
+    "test-win": "set NODE_ENV=development && electron .",
     "pack": "electron-builder --dir",
     "dist": "electron-builder build --publish=never",
     "lint": "eslint main.js --ext .js --max-warnings 0",

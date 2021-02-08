@@ -8,7 +8,7 @@ const mainnetOpenCert = "https://www.opencerts.io/";
 const mainnetTradeTrust = "https://www.tradetrust.io/";
 
 let macFilePath = null;
-const isDev = process.env.NODE_ENV.trim() === "development";
+const isDev = (process.env.NODE_ENV || "") === "development";
 
 function getFilePath() {
   let filePath = null;
@@ -23,7 +23,7 @@ function getFilePath() {
   if (isDev) {
     filePath = path.join(app.getAppPath(), "demo.tt");
   }
-
+ 
   return filePath;
 }
 
