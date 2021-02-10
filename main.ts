@@ -1,33 +1,42 @@
-const { app, BrowserWindow, dialog } = require("electron");
-const { readFileSync } = require("fs");
-const path = require("path");
-const process = require("process");
+import { app, BrowserWindow, dialog } from "electron";
+import { readFileSync } from "fs";
+import path from "path";
+import process from "process";
 
-const permittedExt = [".tt", ".oa", ".oc"];
-const mainnetOpenCert = "https://www.opencerts.io/";
-const mainnetTradeTrust = "https://www.tradetrust.io/";
+const permittedExt: Array<String> = [".tt", ".oa", ".oc"];
+const mainnetOpenCert:string = "https://www.opencerts.io/";
+const mainnetTradeTrust:string = "https://www.tradetrust.io/";
 
-let macFilePath = null;
-const isDev = (process.env.NODE_ENV || "") === "development";
-
-function getFilePath() {
-  let filePath = null;
-  if (macFilePath === null) {
-    if (process.argv.length >= 2 && process.argv[1] !== ".") {
-      filePath = process.argv[1];
-    }
-  } else {
-    filePath = macFilePath;
-  }
-
-  if (isDev) {
-    filePath = path.join(app.getAppPath(), "demo.tt");
-  }
- 
-  return filePath;
+enum OS {
+  WINDOW = process.platform === "darwin" ? 0 : 1,
+  MAC = process.platform !== "darwin" ? 0 : 1,
 }
 
-function validateFile(filePath) {
+let macFilePath:string = null;
+
+// Return filePath
+function getFilePath(): string {
+  if ((process.env.NODE_ENV.trim() || "") === "development") {
+    return path.join(app.getAppPath(), "demo.tt");
+  }
+
+  if (OS.MAC) {
+    return macFilePath !== null ? macFilePath : null;
+  }
+
+  if (OS.WINDOW) {
+    // process.argv[0] is exe path
+    // process.argv[1] is open file path
+    if (process.argv.length >= 2) {
+      const windowFilePath = process.argv[1];
+      return windowFilePath !== "." ? windowFilePath : null;
+    }
+  }
+
+  return null;
+}
+
+function validateFile(filePath: string): string {
   const extIndex = permittedExt.indexOf(path.extname(filePath));
   switch (extIndex) {
     case 0:
@@ -40,14 +49,10 @@ function validateFile(filePath) {
   }
 }
 
-function createWindow(verifier) {
+function createWindow(verifier: string) {
   try {
-    let win;
-
-    if (
-      BrowserWindow.getAllWindows().length > 0 &&
-      process.platform === "darwin"
-    ) {
+    let win: BrowserWindow
+    if (BrowserWindow.getAllWindows().length > 0 && OS.MAC) {
       win = BrowserWindow.getFocusedWindow();
     } else {
       win = new BrowserWindow({
@@ -70,7 +75,7 @@ function createWindow(verifier) {
   }
 }
 
-function loadFile(win, filePath) {
+function loadFile(win: BrowserWindow, filePath: string) {
   try {
     const fileData = readFileSync(filePath, "utf-8");
     win.webContents.send("upload-form", fileData);
@@ -141,7 +146,7 @@ app.on("open-file", (event, path) => {
 });
 
 app.on("window-all-closed", () => {
-  if (process.platform !== "darwin") {
+  if (OS.WINDOW) {
     app.quit();
   }
 });
