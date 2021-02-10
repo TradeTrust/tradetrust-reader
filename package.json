@@ -1,11 +1,24 @@
 {
   "name": "openattestation-reader",
   "productName": "OpenAttestation Reader",
-  "description": "Read .OA, .TT, .OC files through browser",
-  "version": "0.1.0",
-  "main": "main.ts",
+  "version": "1.0.0",
+  "description": "Read .OA, .TT, .OC files",
+  "main": "dist/main.js",
+  "scripts": {
+    "build": "tsc && npm run copy-assets",
+    "watch": "tsc -w",
+    "lint": "eslint -c .eslintrc --ext .ts ./src",
+    "start-win": "npm run build && npm run copy-assets && set NODE_ENV=development && electron ./dist/main.js ",
+    "start-mac": "npm run build && npm run copy-assets && export NODE_ENV=development && electron ./dist/main.js ",
+    "copy-assets": "cp -rv src/assets dist",
+    "pack": "electron-builder --dir ",
+    "dist": "electron-builder build --publish=never"
+  },
   "build": {
     "appId": "com.example.app",
+    "directories": {
+      "output": "build"
+    },
     "fileAssociations": [
       {
         "name": "TradeTrust Document",
@@ -42,24 +55,13 @@
       "icon": "build/icon.png"
     }
   },
-  "scripts": {
-    "test-mac": "export NODE_ENV=development && electron .",
-    "test-win": "set NODE_ENV=development && electron .",
-    "pack": "electron-builder --dir",
-    "dist": "electron-builder build --publish=never",
-    "lint": "eslint ./ --ext .ts --max-warnings 0",
-    "lint:fix": "npm run lint -- --fix"
-  },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^4.15.0",
-    "@typescript-eslint/parser": "^4.15.0",
-    "electron": "^11.2.1",
+    "@typescript-eslint/eslint-plugin": "4.15.0",
+    "@typescript-eslint/parser": "4.15.0",
+    "electron": "11.2.3",
     "electron-builder": "^22.9.1",
-    "eslint": "^7.19.0",
-    "eslint-config-google": "^0.14.0",
-    "typescript": "^4.1.4"
+    "eslint": "7.19.0",
+    "typescript": "4.1.4"
   },
-  "dependencies": {
-    "electron-squirrel-startup": "^1.0.0"
-  }
+  "dependencies": {}
 }
