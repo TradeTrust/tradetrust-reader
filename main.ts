@@ -3,16 +3,16 @@ import { readFileSync } from "fs";
 import path from "path";
 import process from "process";
 
-const permittedExt: Array<String> = [".tt", ".oa", ".oc"];
-const mainnetOpenCert:string = "https://www.opencerts.io/";
-const mainnetTradeTrust:string = "https://www.tradetrust.io/";
+const permittedExt: Array<string> = [".tt", ".oa", ".oc"];
+const mainnetOpenCert = "https://www.opencerts.io/";
+const mainnetTradeTrust = "https://www.tradetrust.io/";
 
 enum OS {
   WINDOW = process.platform === "darwin" ? 0 : 1,
   MAC = process.platform !== "darwin" ? 0 : 1,
 }
 
-let macFilePath:string = null;
+let macFilePath: string = null;
 
 // Return filePath
 function getFilePath(): string {
@@ -51,7 +51,7 @@ function validateFile(filePath: string): string {
 
 function createWindow(verifier: string) {
   try {
-    let win: BrowserWindow
+    let win: BrowserWindow;
     if (BrowserWindow.getAllWindows().length > 0 && OS.MAC) {
       win = BrowserWindow.getFocusedWindow();
     } else {
