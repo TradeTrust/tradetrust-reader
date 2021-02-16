@@ -53,8 +53,8 @@ const createWindow = (verifier: string): BrowserWindow | string => {
     mainWindow = BrowserWindow.getFocusedWindow();
   } else {
     mainWindow = new BrowserWindow({
-      width: 800,
-      height: 600,
+      width: 1024,
+      height: 768,
       titleBarStyle: "hidden",
       autoHideMenuBar: true,
       webPreferences: {
