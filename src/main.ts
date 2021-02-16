@@ -9,13 +9,12 @@ enum OS {
 }
 
 const permittedExt: Array<string> = [".tt", ".oa", ".oc"];
-const mainnetOpenCert = "https://www.opencerts.io/";
-const mainnetTradeTrust = "https://www.tradetrust.io/";
+const urlOpenCertMainnet = "https://www.opencerts.io/";
+const urlTradeTrustMainnet = "https://www.tradetrust.io/";
 
-let macFilePath: string | null = null;
+let macFilePath = "";
 
-// Return filePath
-function getFilePath(): string | null {
+const getFilePath = (): string => {
   if ((process.env.NODE_ENV || "").trim() === "development") {
     return path.join(app.getAppPath(), "assets/demo.tt");
   }
@@ -29,27 +28,26 @@ function getFilePath(): string | null {
     // process.argv[1] is open file path
     if (process.argv.length >= 2) {
       const windowFilePath = process.argv[1];
-      return windowFilePath !== "." ? windowFilePath : null;
+      return windowFilePath !== "." ? windowFilePath : "";
     }
   }
-  return null;
-}
+  return "";
+};
 
-function validateFile(filePath: string): string | null {
+const validateFile = (filePath: string): string | null => {
   const extIndex = permittedExt.indexOf(path.extname(filePath));
   switch (extIndex) {
     case 0:
     case 1:
-      return mainnetTradeTrust;
+      return urlTradeTrustMainnet;
     case 2:
-      return mainnetOpenCert;
+      return urlOpenCertMainnet;
     default:
       return null;
   }
-}
+};
 
-function createWindow(verifier: string): BrowserWindow | null {
-  // Create the browser window.
+const createWindow = (verifier: string): BrowserWindow | string => {
   let mainWindow: BrowserWindow;
   if (BrowserWindow.getAllWindows().length > 0 && OS.MAC) {
     mainWindow = BrowserWindow.getFocusedWindow();
@@ -69,23 +67,25 @@ function createWindow(verifier: string): BrowserWindow | null {
     mainWindow.loadURL(verifier);
     return mainWindow;
   } catch (e) {
-    return null;
+    console.error(e);
+    return e;
   }
-}
+};
 
-function loadFile(mainWindow: BrowserWindow, filePath: string) {
+const loadFile = (mainWindow: BrowserWindow, filePath: string): boolean => {
   try {
     const fileData = readFileSync(filePath, "utf-8");
     mainWindow.webContents.send("upload-form", fileData);
     return true;
   } catch (e) {
+    console.error(e);
     return false;
   }
-}
+};
 
-function main() {
+const main = () => {
   const filePath = getFilePath();
-  if (filePath === null) {
+  if (filePath === "") {
     dialog.showMessageBoxSync({
       type: "error",
       title: "No File Input Found",
@@ -109,7 +109,7 @@ function main() {
   }
 
   const mainWindow = createWindow(verifier);
-  if (mainWindow === null) {
+  if (!(mainWindow instanceof BrowserWindow)) {
     dialog.showMessageBoxSync({
       type: "error",
       title: "Website Loading",
@@ -121,7 +121,6 @@ function main() {
   }
 
   mainWindow.once("ready-to-show", () => {
-    mainWindow.maximize();
     if (!loadFile(mainWindow, filePath)) {
       dialog.showMessageBoxSync({
         type: "error",
@@ -137,19 +136,22 @@ function main() {
 // This method will be called when Electron has detected
 // file opening from macOS.
 if (OS.MAC) {
-  app.on("open-file", (_event: { preventDefault: () => void; }, path:string) => {
-    macFilePath = path;
-    if (BrowserWindow.getAllWindows().length > 0) {
-      main();
+  app.on(
+    "open-file",
+    (_event: { preventDefault: () => void }, path: string) => {
+      macFilePath = path;
+      if (BrowserWindow.getAllWindows().length > 0) {
+        main();
+      }
     }
-  });
+  );
 }
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
 app.on("window-all-closed", () => {
-  if (process.platform !== "darwin") {
+  if (OS.WINDOW) {
     app.quit();
   }
 });
@@ -157,9 +159,4 @@ app.on("window-all-closed", () => {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on("ready", () => {
-  main();
-});
-
-// In this file you can include the rest of your app"s specific main process
-// code. You can also put them in separate files and require them here.
+app.on("ready", main);

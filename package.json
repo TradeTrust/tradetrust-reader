@@ -1,6 +1,7 @@
 {
   "name": "openattestation-reader",
   "productName": "OpenAttestation Reader",
+  "author": "GovTech",
   "version": "1.0.0",
   "description": "Read .OA, .TT, .OC files",
   "main": "./build/main.js",
@@ -23,7 +24,6 @@
       "build/**/*"
     ],
     "extends": null,
-    "asar": false,
     "fileAssociations": [
       {
         "name": "TradeTrust Document",

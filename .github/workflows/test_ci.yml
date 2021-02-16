@@ -36,4 +36,4 @@ jobs:
       - name: Check Lint
         run: npm run lint
       - name: Build
-        run: npm run build && npm run dist
+        run: npm run build && npm run pack
