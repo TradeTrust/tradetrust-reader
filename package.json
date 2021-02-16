@@ -1,0 +1,72 @@
+{
+  "name": "openattestation-reader",
+  "productName": "OpenAttestation Reader",
+  "author": "GovTech",
+  "version": "1.0.0",
+  "description": "Read .OA, .TT, .OC files",
+  "main": "./build/main.js",
+  "scripts": {
+    "build": "tsc && npm run copy-assets",
+    "watch": "tsc -w",
+    "lint": "eslint -c .eslintrc --ext .ts ./src",
+    "start-win": "npm run build && npm run copy-assets && set NODE_ENV=development && electron ./build/main.js ",
+    "start-mac": "npm run build && npm run copy-assets && export NODE_ENV=development && electron ./build/main.js ",
+    "copy-assets": "cp -rv src/assets build",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder -mwl"
+  },
+  "build": {
+    "appId": "com.example.app",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "build/**/*"
+    ],
+    "extends": null,
+    "fileAssociations": [
+      {
+        "name": "TradeTrust Document",
+        "ext": "tt"
+      },
+      {
+        "name": "JSON Document",
+        "ext": "json"
+      },
+      {
+        "name": "OpenAttestation Document",
+        "ext": "oa"
+      },
+      {
+        "name": "OpenCert Document",
+        "ext": "oc"
+      }
+    ],
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.png"
+    },
+    "win": {
+      "icon": "build/icon.png"
+    },
+    "linux": {
+      "icon": "build/icon.png"
+    }
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "4.15.0",
+    "@typescript-eslint/parser": "4.15.0",
+    "electron": "11.2.3",
+    "electron-builder": "^22.9.1",
+    "eslint": "7.19.0",
+    "typescript": "4.1.4"
+  },
+  "dependencies": {}
+}
