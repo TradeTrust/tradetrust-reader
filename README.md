@@ -25,9 +25,10 @@ $ npm install
 
 ## Commands
 ```sh
-$ npm run dist # Build application
-$ npm run pack # Build application (unpacked dir)
-$ npm run lint # package
-$ npm run lint:fix # lint code
+$ npm run build # Build application
+$ npm run pack # Build application for unpacked distribution
+$ npm run pack # Build application for packed distribution
+$ npm run lint # Check eslint
+$ npm run lint:fix # Check eslint and fix
 ```
 ---
