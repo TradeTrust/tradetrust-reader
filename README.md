@@ -14,8 +14,7 @@ _Note: The reader are only use for document issued under mainnet ._
 4. Or open .tt/.oc/.oa document with OpenAttestation reader.
 
 ## Issues
-- Unsupported File Type
-Application only support extension of .tt, .oc, .oa document.
+- Unsupported File Type : Application only support extension of .tt, .oc, .oa document.
 
 ## Development
 You can `git clone` this repo
