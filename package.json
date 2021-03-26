@@ -13,7 +13,7 @@
     "start-mac": "npm run build && npm run copy-assets && export NODE_ENV=development && electron ./build/main.js ",
     "copy-assets": "cp -rv src/assets build",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder -mwl"
+    "dist": "electron-builder build"
   },
   "build": {
     "appId": "com.example.app",
@@ -58,6 +58,11 @@
     },
     "linux": {
       "icon": "build/icon.png"
+    },
+    "nsis":{
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true
     }
   },
   "devDependencies": {
