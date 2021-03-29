@@ -8,7 +8,7 @@ enum OS {
   MAC = process.platform !== "darwin" ? 0 : 1,
 }
 
-const permittedExt: Array<string> = [".tt", ".oa", ".oc"];
+const permittedExt: Array<string> = [".tt", ".oa", ".opencert"];
 const urlOpenCertMainnet = "https://www.opencerts.io/";
 const urlTradeTrustMainnet = "https://www.tradetrust.io/";
 
@@ -131,7 +131,7 @@ const main = () => {
       return;
     }
   });
-}
+};
 
 // This method will be called when Electron has detected
 // file opening from macOS.
