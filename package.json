@@ -14,7 +14,7 @@
     "copy-assets": "cp -rv src/assets build",
     "pack": "electron-builder --dir",
     "dist": "npm run build && electron-builder build",
-    "dist-all": "electron-builder -mwl"
+    "dist-all": "npm run build && electron-builder -mwl"
   },
   "build": {
     "appId": "com.example.app",
